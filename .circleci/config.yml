@@ -234,6 +234,13 @@ jobs:
             cd backend
             npm install
             npm run migrations > migrations_dump.txt
+      - run:
+          name: Send migration status to kvdb.io
+          command: |
+            if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
+            then
+              curl https://kvdb.io/${KVDB_BUCKET}/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+            fi
       - destroy-environment
       - revert-migrations
 
@@ -278,7 +285,9 @@ jobs:
       - install_ansible
       - install_nodejs
       - add_ssh_keys:
-          fingerprints: ["dc:a0:82:c9:21:9c:d5:65:11:98:31:6e:ca:c3:c1:ee"]
+          fingerprints: ["dc:a0:82:c9:21:9c:d5:65:11:98:31:6e:ca:c3:c1:ee
+
+"]
       - attach_workspace:
           at: ~/
       - restore_cache:
