@@ -23,7 +23,7 @@ import {
 export namespace Employees {
   export interface Props extends RouteComponentProps<void> {
     actions: EmployeeActions;
-    employees: EmployeeModel[z];
+    employees: EmployeeModel[];
     isFetching: boolean;
     errorMessage: string;
     searchText: string;
