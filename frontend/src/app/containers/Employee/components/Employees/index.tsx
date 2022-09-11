@@ -19,11 +19,12 @@ import {
   Button,
   ActionsMenu,
 } from 'app/components';
+import {Arr} from '../../actions/employ'
 
 export namespace Employees {
   export interface Props extends RouteComponentProps<void> {
     actions: EmployeeActions;
-    employees: EmployeeModel[];
+    employees: EmployeeModel[...Arr];
     isFetching: boolean;
     errorMessage: string;
     searchText: string;
